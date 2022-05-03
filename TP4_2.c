@@ -11,6 +11,7 @@ int Duracion; // entre 10 – 100
 
 
 void BusquedaPorPalabra(Tarea ** ArregloDeTareas,int cantidadDeTareas);
+void BusquedaPorId (Tarea** ArregloDeTareas,int cantidadDeTareas);
 
 int main (){
 
@@ -97,11 +98,12 @@ printf("\n\nTAREAS PENDIENTES:\n");
             i++;
         }
     }
-    
-
+fflush(stdin);
+// BUSQUEDA POR ID  Y POR PALABRA
+    BusquedaPorId(ArregloDeTareas,cantidadDeTareas);
     BusquedaPorPalabra(ArregloDeTareas,cantidadDeTareas);
 
-
+    
 fflush(stdin);
 getchar();
 
@@ -129,7 +131,7 @@ void BusquedaPorPalabra(Tarea ** ArregloDeTareas,int cantidadDeTareas){
             {
                 printf("\nTarea id es : %d \n",ArregloDeTareas[i]->TareaID);
                 printf("La descripcion es : %s \n",ArregloDeTareas[i]->Descripcion);
-                printf("La duracion de la tarea es : %d \n",ArregloDeTareas[i]->Duracion);
+                printf("La duracion de la tarea es : %d \n\n",ArregloDeTareas[i]->Duracion);
                 return;
             }
             i++;
@@ -137,7 +139,37 @@ void BusquedaPorPalabra(Tarea ** ArregloDeTareas,int cantidadDeTareas){
         
         
     }
-    printf("\nEsa palabra clave no corresponde a ninguna tarea.\n");
+    printf("\nEsa palabra clave no corresponde a ninguna tarea.\n\n");
     free(aux);
+    return;
+}
+
+
+
+void BusquedaPorId (Tarea** ArregloDeTareas,int cantidadDeTareas) {
+
+    int i= 0,id=0;
+    printf("\n\ningrese el ID de la tarea a buscar : ");
+    scanf("%d",&id);
+    while (i < cantidadDeTareas)
+    {
+        if (ArregloDeTareas[i] == NULL)
+        {
+            i++;
+        }else{
+
+            if (ArregloDeTareas[i]->TareaID == id)
+            {
+                printf("\nTarea id es : %d \n",ArregloDeTareas[i]->TareaID);
+                printf("La descripcion es : %s \n",ArregloDeTareas[i]->Descripcion);
+                printf("La duracion de la tarea es : %d \n\n",ArregloDeTareas[i]->Duracion);
+                return;
+            }
+            i++;
+        }
+        
+        
+    }
+    printf("\nEse id no corresponde a ninguna tarea.\n\n");
     return;
 }
