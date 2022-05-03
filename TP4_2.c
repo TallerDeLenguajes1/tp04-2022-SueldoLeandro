@@ -10,7 +10,7 @@ int Duracion; // entre 10 – 100
 }typedef Tarea;
 
 
-
+void BusquedaPorPalabra(Tarea ** ArregloDeTareas,int cantidadDeTareas);
 
 int main (){
 
@@ -99,11 +99,45 @@ printf("\n\nTAREAS PENDIENTES:\n");
     }
     
 
-    
+    BusquedaPorPalabra(ArregloDeTareas,cantidadDeTareas);
 
+
+fflush(stdin);
 getchar();
 
 
     return 0;
 }
 
+
+
+void BusquedaPorPalabra(Tarea ** ArregloDeTareas,int cantidadDeTareas){
+
+    char *aux = (char*) malloc(sizeof(char)*100);
+
+    int i= 0,id=0;
+    printf("\ningrese la palabra clave de la tarea a buscar : ");
+    gets(aux);
+    while (i < cantidadDeTareas)
+    {
+        if (ArregloDeTareas[i] == NULL)
+        {
+            i++;
+        }else{
+
+            if (strstr(ArregloDeTareas[i]->Descripcion, aux) != NULL)
+            {
+                printf("\nTarea id es : %d \n",ArregloDeTareas[i]->TareaID);
+                printf("La descripcion es : %s \n",ArregloDeTareas[i]->Descripcion);
+                printf("La duracion de la tarea es : %d \n",ArregloDeTareas[i]->Duracion);
+                return;
+            }
+            i++;
+        }
+        
+        
+    }
+    printf("\nEsa palabra clave no corresponde a ninguna tarea.\n");
+    free(aux);
+    return;
+}
