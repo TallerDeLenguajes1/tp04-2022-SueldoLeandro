@@ -9,7 +9,7 @@ char *Descripcion; //
 int Duracion; // entre 10 – 100
 }typedef Tarea;
 
-
+void BusquedaPorId (Tarea** ArregloDeTareas,int cantidadDeTareas);
 
 
 int main (){
@@ -29,6 +29,7 @@ ArregloDeTareas = (Tarea**)malloc (sizeof(Tarea*)*cantidadDeTareas);
 TareasRealizadas = (Tarea**)malloc (sizeof(Tarea*)*cantidadDeTareas);
 
 fflush(stdin);
+// CARGAR TAREAS
 for (int i = 0; i < cantidadDeTareas; i++)
 {
     ArregloDeTareas[i] = (Tarea*)malloc (sizeof(Tarea));
@@ -43,6 +44,7 @@ for (int i = 0; i < cantidadDeTareas; i++)
     ArregloDeTareas[i]->Duracion = rand() % 11 + 80;
 }
 
+// MUEVO A TAREAS REALIZADAS
 int contadorTRealizadas=0;
 for (int i = 0; i < cantidadDeTareas; i++)
 {   
@@ -63,7 +65,7 @@ for (int i = 0; i < cantidadDeTareas; i++)
 
 fflush(stdin);
 
-// MOSTRAR TAREAS
+// MOSTRAR TAREAS REALIZADAS Y PENDIENTES
     printf("\n\nTAREAS REALIZADAS:\n");
     for (int i = 0; i < contadorTRealizadas; i++)
     {
@@ -97,13 +99,46 @@ printf("\n\nTAREAS PENDIENTES:\n");
             i++;
         }
     }
+   
     
+ // BUSQUEDA POR ID 
+    BusquedaPorId(ArregloDeTareas,cantidadDeTareas);
 
-    
 
+
+fflush(stdin);
 getchar();
 
 
     return 0;
 }
 
+
+
+void BusquedaPorId (Tarea** ArregloDeTareas,int cantidadDeTareas) {
+
+    int i= 0,id=0;
+    printf("\ningrese el ID de la tarea a buscar : ");
+    scanf("%d",&id);
+    while (i < cantidadDeTareas)
+    {
+        if (ArregloDeTareas[i] == NULL)
+        {
+            i++;
+        }else{
+
+            if (ArregloDeTareas[i]->TareaID == id)
+            {
+                printf("\nTarea id es : %d \n",ArregloDeTareas[i]->TareaID);
+                printf("La descripcion es : %s \n",ArregloDeTareas[i]->Descripcion);
+                printf("La duracion de la tarea es : %d \n",ArregloDeTareas[i]->Duracion);
+                return;
+            }
+            i++;
+        }
+        
+        
+    }
+    printf("\nEse id no corresponde a ninguna tarea.\n");
+    return;
+}
